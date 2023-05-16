@@ -1,0 +1,142 @@
+<link href="view/css/video-js.min.css" rel="stylesheet">
+<script src="view/js/video.min.js"></script>
+
+
+
+<style type="text/css">
+@media (min-width: 576px) {  #qblg-video-player {   width: 40%;  height: 43%;}    }
+@media (max-width: 960px) {  #qblg-video-player {   width: 100%;  height: 30%;}    }
+#qblg-video-player {
+    display: none;
+    background-color: #000;
+    border-radius: 14px;
+     
+    position: fixed;
+    right: 0.1%; 
+    bottom: 5%;
+    z-index: 9000;
+    float: bottom;
+}
+</style>
+
+
+
+<div id="qblg-video-player">
+    <!-- 头部 -->
+    <div class="toast-header" id="video-header" style="background-color: #DBDBDB; height: 35px;"></div>
+
+    <!-- 本地视频 -->
+    <div class="toast-body" id="video-body-local" style="padding: 0px;">  <!-- preload="auto"  loop = false -->
+        <video style="width: 100%; height: 100%;" 
+            id="local-player"
+            class="video-js"
+            controls
+            preload="auto"
+            loop = false
+            playsinline = true
+            webkitPlaysinline = true
+            data-setup='{}'>
+        </video>        
+    </div>
+    <!-- ytb -->
+    <div class="toast-body" id="video-body-yt" style="padding: 0px;"></div>
+</div>
+
+
+ 
+
+ 
+
+
+
+
+<script type="text/javascript">
+
+ 
+MGLEMS = {
+
+    video: function(VId) {
+        document.getElementById("qblg-video-player").style.display = "block"; 
+        QBLG.divmove('qblg-video-player');
+        let header = document.getElementById('video-header');
+
+
+
+        header.innerHTML = MGLEMS.localVideoHeader(VId);
+        document.getElementById("video-body-local").style.display = "block";
+            //播放器
+        // https://blog.csdn.net/little__SuperMan/article/details/89203270/
+        MGLEMS.OBJ = videojs('local-player');
+        MGLEMS.OBJ.src({type: 'video/mp4', src: VId});
+        MGLEMS.OBJ.play(); 
+        MGLEMS.OBJ.volume(1);
+
+
+
+        document.getElementById("aplayer").style.display = "none"; 
+    MGLEM.obj.pause();
+     
+    },
+
+    m3u8: function(VId) {
+        console.log(VId);
+
+         document.getElementById("qblg-video-player").style.display = "block"; 
+        QBLG.divmove('qblg-video-player');
+        let header = document.getElementById('video-header');
+
+
+
+        header.innerHTML = MGLEMS.m3u8Header(VId);
+        document.getElementById("video-body-local").style.display = "block";
+            //播放器
+            // https://blog.csdn.net/little__SuperMan/article/details/89203270/
+            MGLEMS.OBJ = videojs('local-player');
+            MGLEMS.OBJ.src({type: 'application/x-mpegURL', src: VId});
+            MGLEMS.OBJ.play(); 
+            MGLEMS.OBJ.volume(1);
+
+        document.getElementById("aplayer").style.display = "none"; 
+        MGLEM.obj.pause();
+    },
+
+
+
+    localVideoHeader: function(VId) {
+        let vDownLoadUrl = VId + '?response-content-type=application/octet-stream';
+        let aDownLoadUrl = VId.replaceAll(".mp4", ".mp3") + '?response-content-type=application/octet-stream';   //application/zip
+ 
+        let str =  `
+        <a href="`+ vDownLoadUrl +`" download target="_blank" class="me-auto">视频</a>
+        <a href="`+ aDownLoadUrl +`" download target="_blank" class="me-auto">音频</a>
+        
+        <small class="text-muted" >纳贡毕力格 蒙医</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" onclick="MGLEMS.close();"></button>`;
+
+        return str;
+    },
+
+     m3u8Header: function(VId) {
+        let str =  `
+        <a href="" download="test" target="_blank" class="me-auto"></a>
+        <small class="text-muted" >2 seconds ago</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" onclick="MGLEMS.close();"></button>`;
+        return str;
+    },
+
+    /////
+    close: function() {
+        MGLEMS.OBJ.pause();
+        document.getElementById("video-body-local").style.display = "none";
+        document.getElementById("video-body-yt").style.display = "none";
+        document.getElementById("qblg-video-player").style.display = "none"; 
+    },
+
+
+}
+
+
+
+
+</script>
+

@@ -1,0 +1,13 @@
+#!/usr/bin/env xdg-open
+
+[Desktop Entry]
+Type=Application
+Terminal=false
+Encoding=UTF-8
+Version=1.1
+Name=Eclipse IDE for Java Developers - 2022-09
+StartupWMClass=Eclipse
+Exec=env GTK_IM_MODULE=fcitx /home/user/program/eclipse-installer/java-2022-09/eclipse/eclipse
+Categories=Development;IDE;
+Icon=/home/user/program/eclipse-installer/java-2022-09/eclipse/icon.xpm
+Name[en_US]=female.jpg

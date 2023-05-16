@@ -1,0 +1,73 @@
+<script src="view/media/APlayer.min.js"></script>
+<link rel="stylesheet" href="view/media/APlayer.min.css">
+
+
+
+
+<div id="aplayer" style="z-index: 500;"></div>
+
+
+
+
+<style type="text/css">
+@media (min-width: 576px) {  #aplayer {   width: 35%;  height: 90px; }    }
+@media (max-width: 576px) {  #aplayer {   width: 100%;  height: 90px; }    }
+
+#aplayer{
+    position: fixed;cursor: pointer;
+    right: 0.1%; 
+    bottom: 5px;
+    display: none;
+    z-index: 99999;
+    box-shadow: 0px 0px 6px gray;   
+} 
+</style>
+
+
+
+
+
+<script type="text/javascript">
+
+MGLEM.audio = function(path) {
+  document.getElementById("aplayer").style.display = "block";
+
+  let arr = path.split("/");
+
+
+  //音乐
+  MGLEM.obj = new APlayer({
+    container: document.getElementById('aplayer'),
+   // mini: true,
+    lrcType: 3, //歌词模式是 lrc文件
+    mutex: true, //防止重复播放
+    autoplay: true, //自动播放
+    loop: 'all',  //循环
+    audio: {
+        name: arr.pop(),
+       // lrc: 'music/中文/F4-流星雨.lrc',
+        //lrc: lrc,
+        url: path
+      }
+  });
+
+  QBLG.divmove('aplayer');
+
+  MGLEMS.close();
+}
+
+MGLEM.close = function() {
+    document.getElementById("aplayer").style.display = "none"; 
+    MGLEM.obj.pause();
+ 
+}
+</script>
+
+
+<script type="text/javascript">
+// QBLG.videosClose = function() {
+//     QBLGPLA.YT.stopVideo();
+//      QBLGPLA.playerObj.pause();
+// }
+    
+</script>
